@@ -3,6 +3,7 @@ import { randomUUID } from 'crypto';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { profile } from 'console';
 import { UpdateProfileDto } from './dto/update-profile.dto';
+import { match } from 'assert';
 
 @Injectable()
 export class ProfilesService {
@@ -50,8 +51,13 @@ export class ProfilesService {
     return this.profiles.find((profile) => profile.id === id);
   }
 
-  deleteOne(id: string) {
-    return 0;
+  deleteOne(id: string): void {
+    const matchingProfileIndex = this.profiles.findIndex(
+      (profile) => profile.id === id,
+    );
+    if (matchingProfileIndex > -1) {
+      this.profiles.splice(matchingProfileIndex, 1);
+    }
   }
 
   updateOne(id: string, UpdateProfileDto: UpdateProfileDto) {

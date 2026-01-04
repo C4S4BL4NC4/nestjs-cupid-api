@@ -48,5 +48,7 @@ export class ProfilesController {
   // DELETE /profiles/:id
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  deleteOne(@Param('id') id: string) {}
+  deleteOne(@Param('id') id: string) {
+    this.ProfilesService.deleteOne(id);
+  }
 }
