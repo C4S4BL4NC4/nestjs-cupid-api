@@ -42,10 +42,7 @@ export class ProfilesController {
     @Param('id') id: string,
     @Body() UpdateProfileDto: UpdateProfileDto,
   ) {
-    return {
-      id,
-      ...UpdateProfileDto,
-    };
+    return this.ProfilesService.updateOne(id, UpdateProfileDto);
   }
 
   // DELETE /profiles/:id

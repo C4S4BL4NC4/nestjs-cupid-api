@@ -1,12 +1,13 @@
 @url = http://localhost:3000
 @token = your-jwt-here
+@profileId = 4d880ed8-cb89-451c-ab89-5604e6b3b982
 
 ### Get All Profiles
 GET {{url}}/profiles
 
 
-### Get Profile id
-GET {{url}}/profiles/7b9fec13-e974-4a9e-a965-3e9f86cafadd
+### Get One Profile
+GET {{url}}/profiles/{{profileId}}
 
 
 
@@ -18,3 +19,26 @@ Content-Type: application/json
   "name": "Carmy Berzatto",
   "description": "Hullo... I'm Carm... Uhmm.. Yea-yea... And uh-um I'm a chef yea."
 }
+
+
+### Update (PUT) a profile - full replace
+PUT {{url}}/profiles/{{profileId}}
+Content-Type: application/json
+
+{
+  "name": "Carmen Berzatto",
+  "description": "Chef. Trying to keep it together."
+}
+
+
+### Update (PATCH) a profile - partial update
+PATCH {{url}}/profiles/{{profileId}}
+Content-Type: application/json
+
+{
+  "description": "Updated description only."
+}
+
+
+### Delete a profile
+DELETE {{url}}/profiles/{{profileId}}
