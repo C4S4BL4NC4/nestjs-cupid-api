@@ -6,7 +6,7 @@ GET {{url}}/profiles
 
 
 ### Get Profile id
-GET {{url}}/profiles/1234
+GET {{url}}/profiles/7b9fec13-e974-4a9e-a965-3e9f86cafadd
 
 
 
@@ -15,6 +15,6 @@ POST {{url}}/profiles
 Content-Type: application/json
 
 {
-  "name": "Daniel",
-  "description": "Hey I'm Danny"
+  "name": "Carmy Berzatto",
+  "description": "Hullo... I'm Carm... Uhmm.. Yea-yea... And uh-um I'm a chef yea."
 }
