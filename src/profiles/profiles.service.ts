@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import { CreateProfileDto } from './dto/create-profile.dto';
-import { profile } from 'console';
 import { UpdateProfileDto } from './dto/update-profile.dto';
-import { match } from 'assert';
 
 @Injectable()
 export class ProfilesService {
