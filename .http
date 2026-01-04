@@ -1,0 +1,20 @@
+@url = http://localhost:3000
+@token = your-jwt-here
+
+### Get All Profiles
+GET {{url}}/profiles
+
+
+### Get Profile id
+GET {{url}}/profiles/1234
+
+
+
+### Post a profile
+POST {{url}}/profiles
+Content-Type: application/json
+
+{
+  "name": "Daniel",
+  "description": "Hey I'm Danny"
+}
