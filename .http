@@ -1,6 +1,6 @@
 @url = http://localhost:3000
 @token = your-jwt-here
-@profileId = f9c77683-fefb-409a-bd45-de71c6d4d87e
+@profileId = 0931593c-eec8-4371-9fc5-17e32edb61be
 
 ### Get All Profiles
 GET {{url}}/profiles
@@ -30,14 +30,6 @@ Content-Type: application/json
   "description": "Chef. Trying to keep it together."
 }
 
-
-### Update (PATCH) a profile - partial update
-PATCH {{url}}/profiles/{{profileId}}
-Content-Type: application/json
-
-{
-  "description": "Updated description only."
-}
 
 
 ### Delete a profile
