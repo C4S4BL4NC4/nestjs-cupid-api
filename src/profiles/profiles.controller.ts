@@ -8,10 +8,14 @@ import {
   Body,
   HttpCode,
   HttpStatus,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { ProfilesService } from './profiles.service';
+import type { UUID } from 'crypto';
+
+// Most of the time errors get thrown from services and catched by controller.
 
 @Controller('profiles')
 export class ProfilesController {
@@ -25,7 +29,7 @@ export class ProfilesController {
 
   // GET /profiles/:id
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseUUIDPipe) id: UUID) {
     return this.ProfilesService.findOne(id);
   }
 
@@ -38,7 +42,7 @@ export class ProfilesController {
   // PUT /profiles/:id
   @Put(':id')
   updateOne(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: UUID,
     @Body() UpdateProfileDto: UpdateProfileDto,
   ) {
     return this.ProfilesService.updateOne(id, UpdateProfileDto);
@@ -47,7 +51,7 @@ export class ProfilesController {
   // DELETE /profiles/:id
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  deleteOne(@Param('id') id: string) {
+  deleteOne(@Param('id', ParseUUIDPipe) id: UUID) {
     this.ProfilesService.deleteOne(id);
   }
 }

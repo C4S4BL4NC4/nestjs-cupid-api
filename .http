@@ -1,6 +1,6 @@
 @url = http://localhost:3000
 @token = your-jwt-here
-@profileId = 0931593c-eec8-4371-9fc5-17e32edb61be
+@profileId = 61af4802-dddb-4f8b-a10f-d42c2cbf7e7a
 
 ### Get All Profiles
 GET {{url}}/profiles

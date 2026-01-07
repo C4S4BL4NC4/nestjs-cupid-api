@@ -3,6 +3,7 @@ import { randomUUID } from 'crypto';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 
+// Most of the time errors get thrown from services and catched by controller.
 @Injectable()
 export class ProfilesService {
   private profiles = [
