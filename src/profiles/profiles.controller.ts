@@ -9,11 +9,14 @@ import {
   HttpCode,
   HttpStatus,
   ParseUUIDPipe,
+  ValidationPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { ProfilesService } from './profiles.service';
 import type { UUID } from 'crypto';
+import { ProfilesGuard } from './profiles.guard';
 
 // Most of the time errors get thrown from services and catched by controller.
 
@@ -35,7 +38,7 @@ export class ProfilesController {
 
   // POST /profiles
   @Post()
-  createOne(@Body() CreateProfileDto: CreateProfileDto) {
+  createOne(@Body(new ValidationPipe()) CreateProfileDto: CreateProfileDto) {
     return this.ProfilesService.createOne(CreateProfileDto);
   }
 
@@ -43,13 +46,14 @@ export class ProfilesController {
   @Put(':id')
   updateOne(
     @Param('id', ParseUUIDPipe) id: UUID,
-    @Body() UpdateProfileDto: UpdateProfileDto,
+    @Body(new ValidationPipe()) UpdateProfileDto: UpdateProfileDto,
   ) {
     return this.ProfilesService.updateOne(id, UpdateProfileDto);
   }
 
   // DELETE /profiles/:id
   @Delete(':id')
+  @UseGuards(ProfilesGuard)
   @HttpCode(HttpStatus.NO_CONTENT)
   deleteOne(@Param('id', ParseUUIDPipe) id: UUID) {
     this.ProfilesService.deleteOne(id);
