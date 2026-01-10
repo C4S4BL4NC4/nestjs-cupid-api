@@ -15,13 +15,12 @@ import { ProfilesModule } from './profiles/profiles.module';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        host: configService.get<string>('DB_HOST'),
-        port: configService.get<number>('DB_PORT'),
-        username: configService.get<string>('DB_USERNAME'),
-        password: configService.get<string>('DB_PASSWORD'),
-        database: configService.get<string>('DB_NAME'),
+        url: configService.get<string>('DB_STRING'),
         autoLoadEntities: true,
-        synchronize: true,
+        synchronize: true, // Only for development!!!!
+        ssl: {
+          rejectUnauthorized: false, // Required for Supabase
+        },
       }),
     }),
     ProfilesModule,
