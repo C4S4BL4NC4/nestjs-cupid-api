@@ -1,78 +1,48 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { randomUUID } from 'crypto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Profile } from './profiles.entity';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 
 // Most of the time errors get thrown from services and catched by controller.
 @Injectable()
 export class ProfilesService {
-  private profiles = [
-    {
-      id: randomUUID(), // Cosmically not unique
-      name: 'Walter White',
-      description:
-        'A friendly chemist, his wife cheated on him with some wallstreet dude. Open for illegal business ideas!',
-    },
-    {
-      id: randomUUID(),
-      name: 'Dexter Morgan',
-      description:
-        'Meet Dex and his dark passenger! A widower, whome wife has passed away recently while he was away on a fishing trip.',
-    },
-    {
-      id: randomUUID(),
-      name: 'Kim Wexler',
-      description:
-        'The best lawyer in HHM Law Firm! A recently divorced woman, whome her exhusband was involved with the drug cartels and some guy called Heisenburg',
-    },
-    {
-      id: randomUUID(),
-      name: 'Debra Morgan',
-      description:
-        "Grade-A cop from Miami Metro PD. Just ended a relationship 0.1ns ago. Now, she's single and ready to mingle!",
-    },
-  ];
+  constructor(
+    @InjectRepository(Profile)
+    private readonly profilesRepo: Repository<Profile>,
+  ) {}
 
-  findAll() {
-    return this.profiles;
+  async findAll() {
+    return this.profilesRepo.find();
   }
 
-  createOne(CreateProfileDto: CreateProfileDto) {
-    const createdProfile = {
-      id: randomUUID(),
-      ...CreateProfileDto,
-    };
-    this.profiles.push(createdProfile);
-    return createdProfile;
+  async createOne(dto: CreateProfileDto) {
+    const entity = this.profilesRepo.create(dto);
+    return this.profilesRepo.save(entity);
   }
 
-  findOne(id: string) {
-    const found = this.profiles.find((profile) => profile.id === id);
-    if (!found)
-      throw new NotFoundException('Cannot find a profile with matching ID.');
+  async findOne(id: string) {
+    const found = await this.profilesRepo.findOneBy({ id });
+    if (!found) {
+      throw new NotFoundException('Cannot find profile with matching id.');
+    }
     return found;
   }
 
-  deleteOne(id: string): void {
-    const matchingProfileIndex = this.profiles.findIndex(
-      (profile) => profile.id === id,
-    );
-    if (!matchingProfileIndex)
-      throw new NotFoundException('Cannot delete profile with matching ID.');
-
-    if (matchingProfileIndex > -1) {
-      this.profiles.splice(matchingProfileIndex, 1);
+  async updateOne(id: string, dto: UpdateProfileDto) {
+    const found = await this.findOne(id);
+    if (!found) {
+      throw new NotFoundException('Cannot update a profile with matching id.');
     }
+    this.profilesRepo.merge(found, dto);
+    return this.profilesRepo.save(found);
   }
 
-  updateOne(id: string, UpdateProfileDto: UpdateProfileDto) {
-    const match = this.profiles.find((exProfile) => exProfile.id === id);
-
-    if (!match)
-      throw new NotFoundException('Cannot update profile with matching ID.');
-
-    match.name = UpdateProfileDto.name;
-    match.description = UpdateProfileDto.description;
-    return match;
+  async deleteOne(id: string): Promise<void> {
+    const result = await this.profilesRepo.delete(id);
+    if (result.affected === 0) {
+      throw new NotFoundException('Cannot delete profile with matching id.');
+    }
   }
 }

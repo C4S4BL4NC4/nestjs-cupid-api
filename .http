@@ -17,7 +17,8 @@ Content-Type: application/json
 
 {
   "name": "Carmy Berzatto",
-  "description": "Hullo... I'm Carm... Uhmm.. Yea-yea... And uh-um I'm a chef yea."
+  "age": 29,
+  "bio": "Hullo... I'm Carm... Uhmm.. Yea-yea... And uh-um I'm a chef yea."
 }
 
 
@@ -27,7 +28,7 @@ Content-Type: application/json
 
 {
   "name": "Carmen Berzatto",
-  "description": "Chef. Trying to keep it together."
+  "bio": "Chef. Trying to keep it together."
 }
 
 

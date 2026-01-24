@@ -3,7 +3,6 @@ import {
   Get,
   Param,
   Post,
-  Put,
   Delete,
   Body,
   HttpCode,
@@ -11,6 +10,7 @@ import {
   ParseUUIDPipe,
   ValidationPipe,
   UseGuards,
+  Patch,
 } from '@nestjs/common';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
@@ -42,10 +42,10 @@ export class ProfilesController {
     return this.ProfilesService.createOne(CreateProfileDto);
   }
 
-  // PUT /profiles/:id
-  @Put(':id')
+  // PATCH /profiles/:id
+  @Patch(':id')
   updateOne(
-    @Param('id', ParseUUIDPipe) id: UUID,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body(new ValidationPipe()) UpdateProfileDto: UpdateProfileDto,
   ) {
     return this.ProfilesService.updateOne(id, UpdateProfileDto);
@@ -55,7 +55,7 @@ export class ProfilesController {
   @Delete(':id')
   @UseGuards(ProfilesGuard)
   @HttpCode(HttpStatus.NO_CONTENT)
-  deleteOne(@Param('id', ParseUUIDPipe) id: UUID) {
-    this.ProfilesService.deleteOne(id);
+  async deleteOne(@Param('id', ParseUUIDPipe) id: UUID) {
+    await this.ProfilesService.deleteOne(id);
   }
 }
