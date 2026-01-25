@@ -26,12 +26,14 @@ export class ProfilesController {
 
   // GET /profiles
   @Get()
+  @HttpCode(200)
   public async findAll() {
     return await this.ProfilesService.findAll();
   }
 
   // GET /profiles/:id
   @Get(':id')
+  @HttpCode(200)
   public async findOne(@Param('id', ParseUUIDPipe) id: UUID) {
     return await this.ProfilesService.findOne(id);
   }
@@ -46,6 +48,7 @@ export class ProfilesController {
 
   // PATCH /profiles/:id
   @Patch(':id')
+  @HttpCode(HttpStatus.ACCEPTED)
   public async updateOne(
     @Param('id', ParseUUIDPipe) id: string,
     @Body(new ValidationPipe()) UpdateProfileDto: UpdateProfileDto,
