@@ -26,36 +26,38 @@ export class ProfilesController {
 
   // GET /profiles
   @Get()
-  findAll() {
-    return this.ProfilesService.findAll();
+  public async findAll() {
+    return await this.ProfilesService.findAll();
   }
 
   // GET /profiles/:id
   @Get(':id')
-  findOne(@Param('id', ParseUUIDPipe) id: UUID) {
-    return this.ProfilesService.findOne(id);
+  public async findOne(@Param('id', ParseUUIDPipe) id: UUID) {
+    return await this.ProfilesService.findOne(id);
   }
 
   // POST /profiles
   @Post()
-  createOne(@Body(new ValidationPipe()) CreateProfileDto: CreateProfileDto) {
-    return this.ProfilesService.createOne(CreateProfileDto);
+  public async createOne(
+    @Body(new ValidationPipe()) CreateProfileDto: CreateProfileDto,
+  ) {
+    return await this.ProfilesService.createOne(CreateProfileDto);
   }
 
   // PATCH /profiles/:id
   @Patch(':id')
-  updateOne(
+  public async updateOne(
     @Param('id', ParseUUIDPipe) id: string,
     @Body(new ValidationPipe()) UpdateProfileDto: UpdateProfileDto,
   ) {
-    return this.ProfilesService.updateOne(id, UpdateProfileDto);
+    return await this.ProfilesService.updateOne(id, UpdateProfileDto);
   }
 
   // DELETE /profiles/:id
   @Delete(':id')
   @UseGuards(ProfilesGuard)
   @HttpCode(HttpStatus.NO_CONTENT)
-  async deleteOne(@Param('id', ParseUUIDPipe) id: UUID) {
+  public async deleteOne(@Param('id', ParseUUIDPipe) id: UUID) {
     await this.ProfilesService.deleteOne(id);
   }
 }
