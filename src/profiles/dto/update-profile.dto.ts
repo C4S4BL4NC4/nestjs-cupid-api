@@ -5,10 +5,11 @@ import {
   IsOptional,
   IsString,
   Length,
-  Matches,
   Min,
   MinLength,
 } from 'class-validator';
+
+import { Match } from 'src/common/decorators/match.decorator';
 
 export class UpdateProfileDto {
   @IsString()
@@ -22,13 +23,18 @@ export class UpdateProfileDto {
 
   @IsString()
   @IsNotEmpty()
-  @MinLength(8)
-  password: string;
+  @MinLength(8, { message: 'Password must be at least 8 characters long' })
+  oldPassword: string;
 
   @IsString()
   @IsNotEmpty()
-  @MinLength(8)
-  passwordConfirm: string;
+  @MinLength(8, { message: 'Password must be at least 8 characters long' })
+  newPassword: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(8, { message: 'Password must be at least 8 characters long' })
+  newPasswordConfirm: string;
 
   @IsOptional()
   @IsString()

@@ -8,6 +8,8 @@ import {
   Min,
   MinLength,
 } from 'class-validator';
+import { Match } from 'src/common/decorators/match.decorator';
+
 export class CreateProfileDto {
   @IsString()
   @IsNotEmpty()
@@ -20,12 +22,12 @@ export class CreateProfileDto {
 
   @IsString()
   @IsNotEmpty()
-  @MinLength(8)
+  @MinLength(8, { message: 'Password must be at least 8 characters long' })
   password: string;
 
   @IsString()
   @IsNotEmpty()
-  @MinLength(8)
+  @MinLength(8, { message: 'Password must be at least 8 characters long' })
   passwordConfirm: string;
 
   @IsString()
