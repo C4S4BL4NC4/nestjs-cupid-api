@@ -20,14 +20,8 @@ export class Profile {
   @Column({ unique: true })
   username: string;
 
-  @Column()
+  @Column({ select: false })
   password: string;
-
-  @BeforeInsert()
-  async hashPassword() {
-    const saltRounds = 10;
-    this.password = await bcrypt.hash(this.password, saltRounds);
-  }
 
   @Index()
   @Column({ type: 'varchar', length: 15 })
@@ -44,4 +38,12 @@ export class Profile {
 
   @UpdateDateColumn({ type: 'timestamptz', select: false })
   updatedAt: Date;
+
+  // Before insertion
+
+  @BeforeInsert()
+  async hashPassword() {
+    const saltRounds = 10;
+    this.password = await bcrypt.hash(this.password, saltRounds);
+  }
 }
