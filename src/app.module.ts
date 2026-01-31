@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProfilesModule } from './profiles/profiles.module';
 import { DatabaseConnectionLogger } from './database/database-connection.logger';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { DatabaseConnectionLogger } from './database/database-connection.logger'
       },
     }),
     ProfilesModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService, DatabaseConnectionLogger],
