@@ -14,7 +14,7 @@ export class Profile {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ unique: true })
+  @Column({ unique: true, select: false })
   email: string;
 
   @Column({ unique: true })
