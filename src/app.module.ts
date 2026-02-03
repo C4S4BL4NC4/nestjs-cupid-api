@@ -7,13 +7,12 @@ import { ProfilesModule } from './profiles/profiles.module';
 import { DatabaseConnectionLogger } from './database/database-connection.logger';
 import { AuthModule } from './auth/auth.module';
 import { MatchesService } from './matches/matches.service';
-import { SwipesService } from './chat/swipes/swipes.service';
 import { SwipesService } from './swipes/swipes.service';
 import { ChatService } from './chat/chat.service';
-import { NotificaitonsService } from './notificaitons/notificaitons.service';
 import { MediaService } from './media/media.service';
 import { LocationService } from './location/location.service';
 import { SubscriptionService } from './subscription/subscription.service';
+import { NotificationsService } from './notifications/notifications.service';
 
 @Module({
   imports: [
@@ -45,6 +44,16 @@ import { SubscriptionService } from './subscription/subscription.service';
     AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService, DatabaseConnectionLogger, MatchesService, SwipesService, ChatService, NotificaitonsService, MediaService, LocationService, SubscriptionService],
+  providers: [
+    AppService,
+    DatabaseConnectionLogger,
+    MatchesService,
+    SwipesService,
+    ChatService,
+    MediaService,
+    LocationService,
+    SubscriptionService,
+    NotificationsService,
+  ],
 })
 export class AppModule {}
