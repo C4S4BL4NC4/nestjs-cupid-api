@@ -39,12 +39,12 @@ export class ProfilesController {
   }
 
   // POST /profiles
-  @Post()
-  public async createOne(
-    @Body(new ValidationPipe()) CreateProfileDto: CreateProfileDto,
-  ) {
-    return await this.ProfilesService.createOne(CreateProfileDto);
-  }
+  // @Post()
+  // public async createOne(
+  //   @Body(new ValidationPipe()) CreateProfileDto: CreateProfileDto,
+  // ) {
+  //   return await this.ProfilesService.createOne(CreateProfileDto);
+  // }
 
   // PATCH /profiles/:id
   @Patch(':id')
