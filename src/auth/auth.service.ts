@@ -19,4 +19,20 @@ export class AuthService {
   async login(dto: LoginUserDto) {
     return console.log('someone logged in');
   }
+
+  // async updateOne(id: string, dto: UpdateProfileDto) {
+  //   const found = await this.findOne(id);
+  //   if (!found) {
+  //     throw new NotFoundException('Cannot update a profile with matching id.');
+  //   }
+  //   this.profilesRepo.merge(found, dto);
+  //   return this.profilesRepo.save(found);
+  // }
+
+  // async deleteOne(id: string): Promise<void> {
+  //   const result = await this.profilesRepo.delete(id);
+  //   if (result.affected === 0) {
+  //     throw new NotFoundException('Cannot delete profile with matching id.');
+  //   }
+  // }
 }

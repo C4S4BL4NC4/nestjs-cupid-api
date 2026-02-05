@@ -27,4 +27,23 @@ export class AuthController {
   public async signIn(@Body(new ValidationPipe()) LoginUserDto: LoginUserDto) {
     return await this.AuthService.login(LoginUserDto);
   }
+
+  // PATCH /ME
+  // // PATCH /auth/:id
+  // @Patch(':id')
+  // @HttpCode(HttpStatus.ACCEPTED)
+  // public async updateOne(
+  //   @Param('id', ParseUUIDPipe) id: string,
+  //   @Body(new ValidationPipe()) UpdateProfileDto: UpdateProfileDto,
+  // ) {
+  //   return await this.ProfilesService.updateOne(id, UpdateProfileDto);
+  // }
+
+  // DELETE /ME
+  // @Delete(':id')
+  // @UseGuards(ProfilesGuard)
+  // @HttpCode(HttpStatus.NO_CONTENT)
+  // public async deleteOne(@Param('id', ParseUUIDPipe) id: UUID) {
+  //   await this.ProfilesService.deleteOne(id);
+  // }
 }
