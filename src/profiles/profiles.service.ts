@@ -1,16 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Profile } from './profiles.entity';
-import { CreateProfileDto } from './dto/create-profile.dto';
-import { UpdateProfileDto } from './dto/update-profile.dto';
+import { User } from '../auth/user.entity';
 
 // Most of the time errors get thrown from services and catched by controller.
 @Injectable()
 export class ProfilesService {
   constructor(
-    @InjectRepository(Profile)
-    private readonly profilesRepo: Repository<Profile>,
+    @InjectRepository(User)
+    private readonly profilesRepo: Repository<User>,
   ) {}
 
   async findAll() {
