@@ -12,8 +12,6 @@ import {
   UseGuards,
   Patch,
 } from '@nestjs/common';
-import { CreateProfileDto } from './dto/create-profile.dto';
-import { UpdateProfileDto } from './dto/update-profile.dto';
 import { ProfilesService } from './profiles.service';
 import type { UUID } from 'crypto';
 import { ProfilesGuard } from './profiles.guard';
@@ -47,20 +45,20 @@ export class ProfilesController {
   // }
 
   // PATCH /profiles/:id
-  @Patch(':id')
-  @HttpCode(HttpStatus.ACCEPTED)
-  public async updateOne(
-    @Param('id', ParseUUIDPipe) id: string,
-    @Body(new ValidationPipe()) UpdateProfileDto: UpdateProfileDto,
-  ) {
-    return await this.ProfilesService.updateOne(id, UpdateProfileDto);
-  }
+  // @Patch(':id')
+  // @HttpCode(HttpStatus.ACCEPTED)
+  // public async updateOne(
+  //   @Param('id', ParseUUIDPipe) id: string,
+  //   @Body(new ValidationPipe()) UpdateProfileDto: UpdateProfileDto,
+  // ) {
+  //   return await this.ProfilesService.updateOne(id, UpdateProfileDto);
+  // }
 
-  // DELETE /profiles/:id
-  @Delete(':id')
-  @UseGuards(ProfilesGuard)
-  @HttpCode(HttpStatus.NO_CONTENT)
-  public async deleteOne(@Param('id', ParseUUIDPipe) id: UUID) {
-    await this.ProfilesService.deleteOne(id);
-  }
+  //   // DELETE /profiles/:id
+  //   @Delete(':id')
+  //   @UseGuards(ProfilesGuard)
+  //   @HttpCode(HttpStatus.NO_CONTENT)
+  //   public async deleteOne(@Param('id', ParseUUIDPipe) id: UUID) {
+  //     await this.ProfilesService.deleteOne(id);
+  //   }
 }
