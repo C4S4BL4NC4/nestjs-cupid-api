@@ -8,6 +8,7 @@ import {
   BeforeInsert,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { UserRole } from './enums/user-role.enum';
 
 @Entity({ name: 'users' })
 export class User {
@@ -22,6 +23,9 @@ export class User {
 
   @Column({ select: false })
   password: string;
+
+  @Column({ type: 'enum', enum: UserRole, default: UserRole.USER })
+  role: UserRole;
 
   @Index()
   @Column({ type: 'varchar', length: 15 })
