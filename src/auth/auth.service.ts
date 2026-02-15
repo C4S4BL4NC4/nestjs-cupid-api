@@ -17,21 +17,35 @@ export class AuthService {
     private readonly usersRepo: Repository<User>,
   ) {}
 
+  /*
+signUp
+1. Checks for existing user.
+2. Throws error if yes.
+3. Creating a user according to dto then save it.
+*/
   async signUp(dto: CreateUserDto) {
-    try {
-    } catch (_) {
+    const existingUser = await this.usersRepo.findOne({
+      where: { email: dto.email },
+    });
+    if (existingUser) {
       throw new ConflictException('Email is already in use');
     }
     const entity = this.usersRepo.create(dto);
     return this.usersRepo.save(entity);
   }
 
+  /*
+  
+  */
+
+  // FIXME: FIX LOGIN
   async login(dto: LoginUserDto) {
-    try {
-      await console.log(dto);
-    } catch (_) {
+    const existingUser = await this.usersRepo.findOne({
+      where: { email: dto.email },
+    });
+    console.log(existingUser);
+    if (!existingUser)
       throw new UnauthorizedException('Invalid email or password');
-    }
   }
 
   // async updateOne(id: string, dto: UpdateProfileDto) {
