@@ -1,9 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
+import * as bcrypt from 'bcrypt';
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -12,12 +18,20 @@ export class AuthService {
   ) {}
 
   async signUp(dto: CreateUserDto) {
+    try {
+    } catch (_) {
+      throw new ConflictException('Email is already in use');
+    }
     const entity = this.usersRepo.create(dto);
     return this.usersRepo.save(entity);
   }
 
   async login(dto: LoginUserDto) {
-    return console.log('someone logged in');
+    try {
+      await console.log(dto);
+    } catch (_) {
+      throw new UnauthorizedException('Invalid email or password');
+    }
   }
 
   // async updateOne(id: string, dto: UpdateProfileDto) {

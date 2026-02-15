@@ -19,3 +19,7 @@ DELETE /admin/profiles/:id          → Delete any account
 PATCH  /admin/profiles/:id/suspend  → Suspend account
 PATCH  /admin/profiles/:id/activate → Reactivate account
 PATCH  /admin/profiles/:id/role     → Change user role
+
+
+
+**Password hashing is handled in the user entity at auth/user.entity.ts**

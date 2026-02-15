@@ -43,7 +43,7 @@ export class User {
   @UpdateDateColumn({ type: 'timestamptz', select: false })
   updatedAt: Date;
 
-  // Before insertion
+  // Before insertion Password hashing
 
   @BeforeInsert()
   async hashPassword() {
