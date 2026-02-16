@@ -35,32 +35,29 @@ signUp
   }
 
   /*
-  
+  login
+  1. Check for user on db and its existance
+  2. Check if password is valid and if it matches
   */
 
-  // FIXME: FIX LOGIN
   async login(dto: LoginUserDto) {
     const existingUser = await this.usersRepo.findOne({
       where: { email: dto.email },
+      select: ['id', 'email', 'password', 'username'],
     });
-    console.log(existingUser);
     if (!existingUser)
       throw new UnauthorizedException('Invalid email or password');
+
+    const isPasswordValid = await bcrypt.compare(
+      dto.password,
+      existingUser.password,
+    );
+    if (!isPasswordValid)
+      throw new UnauthorizedException('Invalid email or password');
+
+    console.log(existingUser);
+    const { password, ...result } = existingUser;
+
+    return result;
   }
-
-  // async updateOne(id: string, dto: UpdateProfileDto) {
-  //   const found = await this.findOne(id);
-  //   if (!found) {
-  //     throw new NotFoundException('Cannot update a profile with matching id.');
-  //   }
-  //   this.profilesRepo.merge(found, dto);
-  //   return this.profilesRepo.save(found);
-  // }
-
-  // async deleteOne(id: string): Promise<void> {
-  //   const result = await this.profilesRepo.delete(id);
-  //   if (result.affected === 0) {
-  //     throw new NotFoundException('Cannot delete profile with matching id.');
-  //   }
-  // }
 }
